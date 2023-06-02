@@ -55,6 +55,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -79,6 +81,14 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isEmailRegistered = false;
     private String registeredEmail = "";
+    private String[] autoCompleteDomains = {
+            "@gmail.com",
+            "@yahoo.com",
+            "@hotmail.com",
+            "@outlook.com",
+            "@yandex.ru",
+            "@mail.ru"
+    };
 
     private List<String> registeredEmails = new ArrayList<>();
 
@@ -97,6 +107,11 @@ public class MainActivity extends AppCompatActivity {
 
         registerButton = findViewById(R.id.registerButton);
         registerButton.setEnabled(false);
+
+        AutoCompleteTextView emailEditText = findViewById(R.id.emailEditText);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, autoCompleteDomains);
+        emailEditText.setAdapter(adapter);
+        emailEditText.setThreshold(1); // Установите минимальное количество символов для показа автозаполнений
 
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
